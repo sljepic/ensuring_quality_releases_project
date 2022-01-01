@@ -16,7 +16,6 @@ stages:
       displayName: 'Terraform init'
       inputs:
         provider: 'azurerm'
-        workingDirectory: terraform
         command: 'init'
         backendServiceArm: 'terraform_conn'
         backendAzureRmResourceGroupName: 'tfstate'
