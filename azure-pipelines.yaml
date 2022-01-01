@@ -13,7 +13,7 @@ stages:
       inputs:
         terraformVersion: 'latest'
     - task: TerraformTaskV2@2
-      displayName: 'Terraform install'
+      displayName: 'Terraform init'
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -23,9 +23,17 @@ stages:
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'EuwEzS0FZoFSE+RUceuoxqE1Vq2m8MohDCVYfO5YZTBb8sFyWs4Ze2LYpSWZB0aLv5R7HHaZHzLL1qQxBt9QKg=='
     - task: TerraformTaskV2@2
+      displayName: 'Terraform validate'
       inputs:
         provider: 'azurerm'
         command: 'validate'
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
+
   # Needed for Terraform VM deployment
   # - task: InstallSSHKey@0
   #   inputs:
