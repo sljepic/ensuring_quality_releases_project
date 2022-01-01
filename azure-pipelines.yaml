@@ -16,7 +16,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: 'project3_conn'
+        backendServiceArm: 'terraform_conn'
         backendAzureRmResourceGroupName: 'tfstate'
         backendAzureRmStorageAccountName: 'tfstate17655'
         backendAzureRmContainerName: 'tfstate'
