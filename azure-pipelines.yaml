@@ -16,6 +16,7 @@ stages:
       displayName: 'Terraform init'
       inputs:
         provider: 'azurerm'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
         command: 'init'
         backendServiceArm: 'terraform_conn'
         backendAzureRmResourceGroupName: 'tfstate'
