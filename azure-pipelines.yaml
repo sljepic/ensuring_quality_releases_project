@@ -16,7 +16,7 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: 'My Azure Service Connection'
+        backendServiceArm: 'project3_conn'
         backendAzureRmResourceGroupName: 'tfstate'
         backendAzureRmStorageAccountName: 'tfstate17655'
         backendAzureRmContainerName: 'tfstate'
