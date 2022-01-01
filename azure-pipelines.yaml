@@ -12,12 +12,16 @@ stages:
       displayName: 'Terraform install'
       inputs:
         terraformVersion: 'latest'
-    - task: TerraformCLI@0
-      displayName: 'Initialize Terraform'
+    - task: TerraformTaskV2@2
       inputs:
-        command: init
-        workingDirectory: terraform/environments
-        backendType: selfConfigured
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'My Azure Service Connection'
+        backendAzureRmResourceGroupName: 'tfstate'
+        backendAzureRmStorageAccountName: 'tfstate17655'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'EuwEzS0FZoFSE+RUceuoxqE1Vq2m8MohDCVYfO5YZTBb8sFyWs4Ze2LYpSWZB0aLv5R7HHaZHzLL1qQxBt9QKg=='
+
   # Needed for Terraform VM deployment
   # - task: InstallSSHKey@0
   #   inputs:
