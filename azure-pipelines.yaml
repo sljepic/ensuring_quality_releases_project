@@ -8,12 +8,36 @@ stages:
     pool:
       name: Hosted Ubuntu 1604
     steps:
-    # Needed for Terraform VM deployment
-    # - task: InstallSSHKey@0
-    #   inputs:
-    #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-    #     sshPublicKey: 'PUBLIC_KEY'
-    #     sshKeySecureFile: 'id_rsa'
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: 'latest'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendAzureRmResourceGroupName: 'tfstate'
+        backendAzureRmStorageAccountName: 'tfstate17655'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'EuwEzS0FZoFSE+RUceuoxqE1Vq2m8MohDCVYfO5YZTBb8sFyWs4Ze2LYpSWZB0aLv5R7HHaZHzLL1qQxBt9QKg=='
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
+    - task: TerraformTaskV2@2
+      inputs:
+        provider: 'azurerm'
+        command: 'destroy'
+  # Needed for Terraform VM deployment
+  # - task: InstallSSHKey@0
+  #   inputs:
+  #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
+  #     sshPublicKey: 'PUBLIC_KEY'
+  #     sshKeySecureFile: 'id_rsa'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -24,23 +48,23 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-- stage:
-  jobs:
-  - deployment: FakeRestAPI
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    environment: 'TEST'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: ''
-              appName: ''
-              appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+#- stage:
+#  jobs:
+#  - deployment: FakeRestAPI
+#    pool:
+#      vmImage: 'Ubuntu-16.04'
+#    environment: 'TEST'
+#   strategy:
+#      runOnce:
+#        deploy:
+#          steps:
+#          - task: AzureWebApp@1
+#            displayName: 'Deploy Azure Web App'
+#            inputs:
+#              azureSubscription: ''
+#             appName: ''
+#             appType: webApp
+#              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
   # - deployment: VMDeploy
   #   displayName: NAME
   #   environment:
@@ -56,11 +80,12 @@ stages:
   #             targetType: 'inline'
   #             script: |
   #               #! /bin/bash
-
+                
   #               sudo apt-get upgrade -y
   #               sudo apt-get install python3-pip -y
   #               sudo apt-get install unzip -y
   #               sudo apt-get install -y chromium-browser
   #               pip3 install selenium
   #               export PATH=$PATH:some/path
+
 
