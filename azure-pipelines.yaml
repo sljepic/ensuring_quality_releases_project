@@ -12,6 +12,12 @@ stages:
       displayName: 'Terraform install'
       inputs:
         terraformVersion: 'latest'
+  # Needed for Terraform VM deployment
+    - task: InstallSSHKey@0
+      inputs:
+        knownHostsEntry: 'KNOWN_HOSTS_STRING'
+        sshPublicKey: 'PUBLIC_KEY'
+        sshKeySecureFile: 'id_rsa'
     - task: TerraformTaskV2@2
       displayName: 'Terraform init'
       inputs:
@@ -35,12 +41,6 @@ stages:
         command: 'plan'
         environmentServiceNameAzureRM: 'terraform_conn'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-  # Needed for Terraform VM deployment
-  # - task: InstallSSHKey@0
-  #   inputs:
-  #     knownHostsEntry: 'KNOWN_HOSTS_STRING'
-  #     sshPublicKey: 'PUBLIC_KEY'
-  #     sshKeySecureFile: 'id_rsa'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
