@@ -16,7 +16,7 @@ stages:
       displayName: 'Terraform init'
       inputs:
         provider: 'azurerm'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         command: 'init'
         backendServiceArm: 'terraform_conn'
         backendAzureRmResourceGroupName: 'tfstate'
@@ -28,12 +28,12 @@ stages:
       inputs:
         provider: 'azurerm'
         command: 'validate'
-    - task: TerraformTaskV2@2
-      inputs:
-        provider: 'azurerm'
-        command: 'plan'
-        environmentServiceNameAzureRM: 'terraform_conn'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    # - task: TerraformTaskV2@2
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'plan'
+    #     environmentServiceNameAzureRM: 'terraform_conn'
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
   # Needed for Terraform VM deployment
   # - task: InstallSSHKey@0
   #   inputs:
