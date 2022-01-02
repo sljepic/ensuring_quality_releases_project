@@ -29,11 +29,12 @@ stages:
         provider: 'azurerm'
         command: 'validate'
     - task: TerraformTaskV2@2
+      displayName: 'Terraform plan'
       inputs:
         provider: 'azurerm'
         command: 'plan'
         environmentServiceNameAzureRM: 'terraform_conn'
-        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
   # Needed for Terraform VM deployment
   # - task: InstallSSHKey@0
   #   inputs:
