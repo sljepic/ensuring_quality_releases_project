@@ -22,7 +22,7 @@ stages:
         targetType: 'inline'
         script: |
           mkdir -p ~/.ssh
-          cp $(mySSH.secureFilePath) ~/.ssh: 'id_rsa.pub'
+          cp $(mySSH.secureFilePath)  ~/.ssh
   # Needed for Terraform VM deployment
 #    - task: InstallSSHKey@0
 #      inputs:
