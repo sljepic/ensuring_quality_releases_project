@@ -12,12 +12,23 @@ stages:
       displayName: 'Terraform install'
       inputs:
         terraformVersion: 'latest'
-  # Needed for Terraform VM deployment
-    - task: InstallSSHKey@0
+    - task: DownloadSecureFile@1
+      displayName: "Download secure file"
+      name: mySSH
       inputs:
-        knownHostsEntry: 'KNOWN_HOSTS_STRING'
-        sshPublicKey: 'PUBLIC_KEY'
-        sshKeySecureFile: 'id_rsa'
+        secureFile: 'id_rsa.pub'
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          mkdir -p ~/.ssh
+          cp $(mySSH.secureFilePath) ~/.ssh: 'id_rsa.pub'
+  # Needed for Terraform VM deployment
+#    - task: InstallSSHKey@0
+#      inputs:
+#        knownHostsEntry: 'KNOWN_HOSTS_STRING'
+#        sshPublicKey: 'PUBLIC_KEY'
+#        sshKeySecureFile: 'id_rsa'
     - task: TerraformTaskV2@2
       displayName: 'Terraform init'
       inputs:
