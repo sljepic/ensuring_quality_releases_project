@@ -29,13 +29,14 @@ stages:
 #        knownHostsEntry: 'KNOWN_HOSTS_STRING'
 #        sshPublicKey: 'PUBLIC_KEY'
 #        sshKeySecureFile: 'id_rsa'
+      
     - task: TerraformTaskV2@2
       displayName: 'Terraform init'
       inputs:
         provider: 'azurerm'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         command: 'init'
-        backendServiceArm: 'terraform_conn'
+        backendServiceArm: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
         backendAzureRmResourceGroupName: 'tfstate'
         backendAzureRmStorageAccountName: 'tfstate17655'
         backendAzureRmContainerName: 'tfstate'
