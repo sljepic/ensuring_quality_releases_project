@@ -25,7 +25,6 @@ module "app_service" {
     application_type = "${var.application_type}"
     resource_type    = "AppService"
     resource_group   = "${module.resource_group.resource_group_name}"
-    tags             = "${local.tags}"
 }
 
 module "network" {
@@ -63,13 +62,11 @@ module "publicip" {
   resource_group   = "${module.resource_group.resource_group_name}"
 }
 module "vm" {
-  source           = "../../modules/publicip"
+  source           = "../../modules/vm"
   location         = "${var.location}"
   application_type = "${var.application_type}"
   resource_group   = "${module.resource_group.resource_group_name}"
   resource_type    = "VM"
-  vm_size          = "${var.virtual_machine_size}"
-  username         = "${var.admin_username}"
   subnet_id        = "${module.network.subnet_id_test}"
   public_ip_address_id = "${module.publicip.public_ip_address_id}"
 }

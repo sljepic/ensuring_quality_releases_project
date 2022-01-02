@@ -13,8 +13,3 @@ application_type = "myApplicationProject3"
 virtual_network_name = ""
 address_space = ["10.5.0.0/16"]
 address_prefix_test = "10.5.1.0/24"
-
-# VM
-
-virtual_machine_size = "Standard_B1s"
-admin_username = "admin"
