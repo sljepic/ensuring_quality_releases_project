@@ -76,7 +76,7 @@ stages:
       displayName: 'Run data validation tests'
       inputs:
         targetType: 'inline'
-        script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Data_Validation_Tests_Postman.postman_collection.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export result-data-validation-test.xml'
+        script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Data_Validation_Tests_Postman.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export result-data-validation-test.xml'
     - task: PublishTestResults@2
       displayName: 'Post Postman regression and data validation tests'
       inputs:
