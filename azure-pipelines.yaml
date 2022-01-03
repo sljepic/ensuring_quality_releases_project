@@ -61,7 +61,13 @@ stages:
         environmentServiceNameAzureRM: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
-
+    - task: Bash@3
+      displayName: 'Install Newman dependencies'
+      inputs:
+        targetType: 'inline'
+        script: |
+          sudo npm install -g newman
+          sudo npm install -g newman-reporter-junitfull
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
