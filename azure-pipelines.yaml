@@ -71,7 +71,7 @@ stages:
       displayName: 'Run regression tests'
       inputs:
         targetType: 'inline'
-        script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Regression_Tests_Postman.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export result-data-validation-test.xml'
+        script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Regression_Tests_Postman.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export result-regression-test.xml'
     - task: Bash@3
       displayName: 'Run data validation tests'
       inputs:
@@ -81,7 +81,7 @@ stages:
       displayName: 'Post Postman regression and data validation tests'
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '**/JUnitReport*.xml'
+        testResultsFiles: '**/*test.xml'
         searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
         mergeTestResults: true
         failTaskOnFailedTests: true
