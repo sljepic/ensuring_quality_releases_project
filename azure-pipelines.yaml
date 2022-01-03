@@ -67,6 +67,25 @@ stages:
         script: |
           sudo npm install -g newman
           sudo npm install -g newman-reporter-junitfull
+    - task: Bash@3
+      displayName: 'Run regression tests'
+      inputs:
+        targetType: 'inline'
+        script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Regression_Tests_Postman.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export result-data-validation-test.xml'
+    - task: Bash@3
+      displayName: 'Run data validation tests'
+      inputs:
+        targetType: 'inline'
+        script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Data_Validation_Tests_Postman.postman_collection.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export result-data-validation-test.xml'
+    - task: PublishTestResults@2
+      displayName: 'Post Postman regression and data validation tests'
+      inputs:
+        testResultsFormat: 'JUnit'
+        testResultsFiles: '**/JUnitReport*.xml'
+        searchFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/postman'
+        mergeTestResults: true
+        failTaskOnFailedTests: true
+        testRunTitle: 'Regression and data validation graphs'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
