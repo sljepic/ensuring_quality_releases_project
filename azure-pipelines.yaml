@@ -81,7 +81,7 @@ stages:
       displayName: 'Devbug'
       inputs:
         targetType: 'inline'
-        script: 'ls -la automatedtesting/postman'
+        script: 'ls -la automatedtesting/postman/**/*.xml'
     - task: PublishTestResults@2
       displayName: 'Post Postman regression and data validation tests'
       inputs:
