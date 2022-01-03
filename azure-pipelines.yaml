@@ -54,8 +54,8 @@ stages:
         environmentServiceNameAzureRM: 'terraform_conn'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
     - task: TerraformTaskV2@2
-      inputs:
       displayName: 'Terraform apply'
+      inputs:
         provider: 'azurerm'
         command: 'apply'
         environmentServiceNameAzureRM: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
