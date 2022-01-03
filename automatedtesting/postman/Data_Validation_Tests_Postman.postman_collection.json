@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "be69c422-9c38-43e0-9634-80ef9e2d7f88",
+		"name": "Data_Validation_Tests_Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Employees succesfully fetched\", function () {",
+							"    if (pm.response.code == 200){",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully! Record has been added.\");",
+							"    }",
+							"    else{",
+							"    pm.expect(pm.response.code).to.eql(429);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Check fetched employee data\", function () {",
+							"    if (pm.response.code == 200){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data.name).to.eql(\"John Doe\");",
+							"    pm.expect(jsonData.data.salary).to.eql(\"100000\");",
+							"    pm.expect(jsonData.data.age).to.eql(\"33\");",
+							"    }",
+							"    else{",
+							"    pm.expect(pm.response.code).to.eql(429);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/create",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Employees",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Employees succesfully fetched\", function () {",
+							"    if (pm.response.code == 200){",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully! All records has been fetched.\");",
+							"    }",
+							"    else{",
+							"    pm.expect(pm.response.code).to.eql(429);",
+							"    }",
+							"});",
+							"",
+							"pm.test(\"Check fetched employee data\", function () {",
+							"    if (pm.response.code == 200){",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.data[7].employee_name).to.eql(\"Rhona Davidson\");",
+							"    pm.expect(jsonData.data[7].employee_salary).to.eql(327900);",
+							"    pm.expect(jsonData.data[7].employee_age).to.eql(55);",
+							"    pm.expect(jsonData.data[7].profile_image).to.eql(\"\");",
+							"    }",
+							"    else{",
+							"    pm.expect(pm.response.code).to.eql(429);",
+							"    }",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/employees",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"employees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Employees succesfully updated\", function () {\r",
+							"    if (pm.response.code == 200){\r",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully! Record has been updated.\");\r",
+							"    }\r",
+							"    else{\r",
+							"    pm.expect(pm.response.code).to.eql(429);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check fetched employee data\", function () {\r",
+							"    if (pm.response.code == 200){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.employee_salary).to.eql(\"115000\");\r",
+							"    }\r",
+							"    else{\r",
+							"    pm.expect(pm.response.code).to.eql(429);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"employee_salary\": \"{{new_salary}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/update/{{change_salary_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"update",
+						"{{change_salary_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Employees succesfully deleted\", function () {\r",
+							"    if (pm.response.code == 200){\r",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully! Record has been deleted\");\r",
+							"    }\r",
+							"    else{\r",
+							"    pm.expect(pm.response.code).to.eql(429);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check fetched employee data\", function () {\r",
+							"    if (pm.response.code == 200){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data).to.eql(\"17\");\r",
+							"    }\r",
+							"    else{\r",
+							"    pm.expect(pm.response.code).to.eql(429);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/delete/{{delete_employee_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"delete",
+						"{{delete_employee_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Employees succesfully fetched\", function () {\r",
+							"    if (pm.response.code == 200){\r",
+							"    pm.expect(pm.response.text()).to.include(\"Successfully! Record has been fetched.\");\r",
+							"    }\r",
+							"    else{\r",
+							"    pm.expect(pm.response.code).to.eql(429);\r",
+							"    }\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check fetched employee data\", function () {\r",
+							"    if (pm.response.code == 200){\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.data.employee_name).to.eql(\"Ashton Cox\");\r",
+							"    pm.expect(jsonData.data.employee_salary).to.eql(86000);\r",
+							"    pm.expect(jsonData.data.employee_age).to.eql(66);\r",
+							"    pm.expect(jsonData.data.profile_image).to.eql(\"\");\r",
+							"    }\r",
+							"    else{\r",
+							"    pm.expect(pm.response.code).to.eql(429);\r",
+							"    }\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/employee/{{get_employee_id}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"employee",
+						"{{get_employee_id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
