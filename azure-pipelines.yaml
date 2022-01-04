@@ -100,7 +100,10 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-- stage:
+    - publish: $(System.DefaultWorkingDirectory)/automatedtesting/selenium/loging.py
+      displayName: 'Upload Package'
+      artifact: drop-selenium-test
+- stage: Deploy
   jobs:
   - deployment: FakeRestAPI
     pool:
@@ -117,26 +120,51 @@ stages:
               appName: 'myApplicationProject3-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-  # - deployment: VMDeploy
-  #   displayName: NAME
-  #   environment:
-  #     name:  ENVIRONMENT NAME
-  #     resourceType: VirtualMachine
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - task: Bash@3
-  #           inputs:
-  #             targetType: 'inline'
-  #             script: |
-  #               #! /bin/bash
-                
-  #               sudo apt-get upgrade -y
-  #               sudo apt-get install python3-pip -y
-  #               sudo apt-get install unzip -y
-  #               sudo apt-get install -y chromium-browser
-  #               pip3 install selenium
-  #               export PATH=$PATH:some/path
+  - deployment: VMDeploy
+    displayName: Virtual Machine deployment
+    environment:
+      name:  myEnvironment
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            displayName: 'Download Selenium'
+            artifact: drop-selenium
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                sudo apt-get update
+                sudo apt-get upgrade -y
+                sudo apt-get install python3-pip unzip expect -y
+                sudo apt-get install unzip -y
+                sudo apt-get install -y chromium-browser
+                sudo apt-get install -y chromium-chromedriver
+                pip3 install selenium
 
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                #! /bin/bash
+                cd $(Pipeline.Workspace)/drop-selenium
+                sudo mkdir /var/logs
+                python3 login.py >> /var/logs/selenium-test.log
+                cat /var/logs/selenium-test.log
+# - stage: Test
+#   jobs:
+#     - job: Test
+#       pool:
+#         vmImage: Ubuntu-18.04
+#         steps:
+#           - task: Bash@3
 
+#             inputs:
+#               targetType: 'inline'
+#               script: |
+#                 #! /bin/bash
+#                 sudo apt-get update
+#                 sudo apt-get upgrade -y
