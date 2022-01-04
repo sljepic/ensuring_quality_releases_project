@@ -29,37 +29,36 @@ stages:
 #        knownHostsEntry: 'KNOWN_HOSTS_STRING'
 #        sshPublicKey: 'PUBLIC_KEY'
 #        sshKeySecureFile: 'id_rsa'
-      
-    # - task: TerraformTaskV2@2
-    #   displayName: 'Terraform init'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-    #     command: 'init'
-    #     backendServiceArm: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
-    #     backendAzureRmResourceGroupName: 'tfstate'
-    #     backendAzureRmStorageAccountName: 'tfstate17655'
-    #     backendAzureRmContainerName: 'tfstate'
-    #     backendAzureRmKey: 'EuwEzS0FZoFSE+RUceuoxqE1Vq2m8MohDCVYfO5YZTBb8sFyWs4Ze2LYpSWZB0aLv5R7HHaZHzLL1qQxBt9QKg=='
-    # - task: TerraformTaskV2@2
-    #   displayName: 'Terraform validate'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'validate'
-    # - task: TerraformTaskV2@2
-    #   displayName: 'Terraform plan'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'plan'
-    #     environmentServiceNameAzureRM: 'terraform_conn'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
-    # - task: TerraformTaskV2@2
-    #   displayName: 'Terraform apply'
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'apply'
-    #     environmentServiceNameAzureRM: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform init'
+      inputs:
+        provider: 'azurerm'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+        command: 'init'
+        backendServiceArm: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
+        backendAzureRmResourceGroupName: 'tfstate'
+        backendAzureRmStorageAccountName: 'tfstate17655'
+        backendAzureRmContainerName: 'tfstate'
+        backendAzureRmKey: 'EuwEzS0FZoFSE+RUceuoxqE1Vq2m8MohDCVYfO5YZTBb8sFyWs4Ze2LYpSWZB0aLv5R7HHaZHzLL1qQxBt9QKg=='
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform validate'
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform plan'
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: 'terraform_conn'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
+    - task: TerraformTaskV2@2
+      displayName: 'Terraform apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
     - task: Bash@3
       displayName: 'Install Newman dependencies'
       inputs:
@@ -123,7 +122,6 @@ stages:
   #   environment:
   #     name:  ENVIRONMENT NAME
   #     resourceType: VirtualMachine
-  #     tags: TAG NAME
   #   strategy:
   #     runOnce:
   #       deploy:
