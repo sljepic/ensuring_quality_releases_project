@@ -147,7 +147,7 @@ stages:
               targetType: 'inline'
               script: |
                 #! /bin/bash
-                cd $(Pipeline.Workspace)/drop-selenium
+                cd $(Pipeline.Workspace)/drop-selenium-test
                 python3 login.py
                 cat /var/logs/selenium-test.log
 # - stage: Test
