@@ -1,5 +1,6 @@
 # #!/usr/bin/env python
 import logging
+import sys
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
@@ -66,7 +67,7 @@ def test_if_shoping_cart_is_empty(driver):
     logging.info("Shopping cart is empty.")
 
 def main():
-    logging.basicConfig(filename="selenium-test.log", level=logging.INFO)
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
     logging.info("-------------------------------")
     logging.info("Starting execution")
     logging.info("-------------------------------")
