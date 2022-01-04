@@ -14,18 +14,22 @@ shopping_cart = {
     "red T-shirt": "test.allthethings()-t-shirt-(red)"
 }
 rootLogger = logging.getLogger()
-fileHandler = logging.FileHandler(filename="selenium-test.log", filemode='a', format='utf-8')
+logFormatter = logging.Formatter(fmt="%(asctime)s %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+fileHandler = logging.FileHandler(filename="selenium-test.log", mode='a', encoding='utf-8')
+fileHandler.setLevel(logging.INFO)
+fileHandler.setFormatter(logFormatter)
 rootLogger.addHandler(fileHandler)
-consoleHandler = logging.StreamHandler()
+consoleHandler = logging.StreamHandler(stream=sys.stdout)
+consoleHandler.setLevel(logging.INFO)
 rootLogger.addHandler(consoleHandler)
 
-
+rootLogger.setLevel(logging.INFO)
 
 def initialize_browser():
     rootLogger.info('Starting the browser...')
     #--uncomment when running in Azure DevOps.
     options = ChromeOptions()
-    options.add_argument("--headless") 
+    options.add_argument("--headless")
     driver = webdriver.Chrome(options=options)
     driver = webdriver.Chrome()
     rootLogger.info('Browser started successfully. Navigating to the demo page to login.')
