@@ -76,11 +76,6 @@ stages:
       inputs:
         targetType: 'inline'
         script: 'newman run "$(System.DefaultWorkingDirectory)/automatedtesting/postman/Data_Validation_Tests_Postman.postman_collection.json" -e "$(System.DefaultWorkingDirectory)/automatedtesting/postman/project_3_postman.postman_environment.json" -r cli,junitfull --reporter-junitfull-export $(System.DefaultWorkingDirectory)/automatedtesting/postman/result-data-validation-test.xml'
-    - task: Bash@3
-      displayName: 'Devbug'
-      inputs:
-        targetType: 'inline'
-        script: 'ls -la automatedtesting/postman'
     - task: PublishTestResults@2
       displayName: 'Post Postman regression and data validation tests'
       inputs:
@@ -100,7 +95,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-    - publish: $(System.DefaultWorkingDirectory)/automatedtesting/selenium/loging.py
+    - publish: automatedtesting/selenium/loging.py
       displayName: 'Upload Package'
       artifact: drop-selenium-test
 - stage: Deploy
@@ -133,6 +128,7 @@ stages:
             displayName: 'Download Selenium'
             artifact: drop-selenium
           - task: Bash@3
+            displayName: 'Install Selenium dependencies'
             inputs:
               targetType: 'inline'
               script: |
@@ -146,6 +142,7 @@ stages:
                 pip3 install selenium
 
           - task: Bash@3
+            displayName: 'Run Selenium tests'
             inputs:
               targetType: 'inline'
               script: |
