@@ -159,31 +159,31 @@ stages:
       pool:
         vmImage: Ubuntu-18.04
         steps:
-          - task: JMeterInstaller@0
-            displayName: 'Install JMeter 5.4.1'
-            inputs:
-              jmeterVersion: 5.4.1
-          - task: Bash@3
-            displayName: 'Stress tests'
-            inputs:
-              targetType: 'inline'
-              script: |
-                mkdir -p output_reports
-                jmeter -n -t Stress_test_suite.jmx -l stress-test-results.jtl -e -f -o stress-test-report
-          - task: PublishBuildArtifact@1
-            displayName: 'Publish output report of stress tests'
-            inputs:
-              ArtifactName: 'stress-test-report'
-              PathtoPublish: '$(Build.SourcesDirectory)/stress-test-report'
-          - task: Bash@3
-            displayName: 'Endurance tests'
-            inputs:
-              targetType: 'inline'
-              script: |
-                mkdir -p output_reports
-                jmeter -n -t Endurance_test_suite.jmx -l endurance-test-results.jtl -e -f -o endurance-test-report
-          - task: PublishBuildArtifact@1
-            displayName: 'Publish output report of endurance tests'
-            inputs:
-              ArtifactName: 'endurance-test-report'
-              PathtoPublish: '$(Build.SourcesDirectory)/endurance-test-report'
+        - task: JMeterInstaller@0
+          displayName: 'Install JMeter 5.4.1'
+          inputs:
+            jmeterVersion: 5.4.1
+        - task: Bash@3
+          displayName: 'Stress tests'
+          inputs:
+            targetType: 'inline'
+            script: |
+              mkdir -p output_reports
+              jmeter -n -t Stress_test_suite.jmx -l stress-test-results.jtl -e -f -o stress-test-report
+        - task: PublishBuildArtifact@1
+          displayName: 'Publish output report of stress tests'
+          inputs:
+            ArtifactName: 'stress-test-report'
+            PathtoPublish: '$(Build.SourcesDirectory)/stress-test-report'
+        - task: Bash@3
+          displayName: 'Endurance tests'
+          inputs:
+            targetType: 'inline'
+            script: |
+              mkdir -p output_reports
+              jmeter -n -t Endurance_test_suite.jmx -l endurance-test-results.jtl -e -f -o endurance-test-report
+        - task: PublishBuildArtifact@1
+          displayName: 'Publish output report of endurance tests'
+          inputs:
+            ArtifactName: 'endurance-test-report'
+            PathtoPublish: '$(Build.SourcesDirectory)/endurance-test-report'
