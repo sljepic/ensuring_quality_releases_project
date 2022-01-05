@@ -170,7 +170,7 @@ stages:
         script: |
           mkdir -p output_reports
           jmeter -n -t Stress_test_suite.jmx -l stress-test-results.jtl -e -f -o stress-test-report
-    - task: PublishBuildArtifact@1
+    - task: PublishBuildArtifacts@1
       displayName: 'Publish output report of stress tests'
       inputs:
         ArtifactName: 'stress-test-report'
@@ -182,7 +182,7 @@ stages:
         script: |
           mkdir -p output_reports
           jmeter -n -t Endurance_test_suite.jmx -l endurance-test-results.jtl -e -f -o endurance-test-report
-    - task: PublishBuildArtifact@1
+    - task: PublishBuildArtifacts@1
       displayName: 'Publish output report of endurance tests'
       inputs:
         ArtifactName: 'endurance-test-report'
