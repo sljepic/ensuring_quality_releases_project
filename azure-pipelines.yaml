@@ -168,8 +168,6 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          cd  automated
-          mkdir -p output_reports
           jmeter -n -t automatedtesting/jmeter/Stress_test_suite.jmx -l Stress_test_output.jtl -e -f -o stress-test-report
           cat Stress_test_output.jtl
     - task: PublishBuildArtifacts@1
@@ -182,7 +180,6 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          mkdir -p output_reports
           jmeter -n -t automatedtesting/jmeter/Endurance_test_suite.jmx -l Endurance_test_output.jtl -e -f -o endurance-test-report
           cat Endurance_test_output.jtl
     - task: PublishBuildArtifacts@1
