@@ -158,7 +158,7 @@ stages:
     displayName: 'Jmeter Performance testing'
     pool:
       vmImage: Ubuntu-18.04
-      steps:
+    steps:
     - task: JMeterInstaller@0
       displayName: 'Install JMeter 5.4.1'
       inputs:
