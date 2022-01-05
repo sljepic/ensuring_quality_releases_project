@@ -1,6 +1,7 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
+
 stages:
 - stage: Build
   jobs:
@@ -98,6 +99,7 @@ stages:
     - publish: automatedtesting/selenium/login.py
       displayName: 'Upload Package'
       artifact: drop-selenium-test
+
 - stage: Deploy
   jobs:
   - deployment: FakeRestAPI
@@ -149,17 +151,39 @@ stages:
                 #! /bin/bash
                 cd $(Pipeline.Workspace)/drop-selenium-test
                 python3 login.py
-# - stage: Test
-#   jobs:
-#     - job: Test
-#       pool:
-#         vmImage: Ubuntu-18.04
-#         steps:
-#           - task: Bash@3
 
-#             inputs:
-#               targetType: 'inline'
-#               script: |
-#                 #! /bin/bash
-#                 sudo apt-get update
-#                 sudo apt-get upgrade -y
+- stage: Test
+  jobs:
+    - job: Jmeter_Performance_Tests
+      displayName: 'Jmeter Performance testing'
+      pool:
+        vmImage: Ubuntu-18.04
+        steps:
+          - task: JMeterInstaller@0
+            displayName: 'Install JMeter 5.4.1'
+            inputs:
+              jmeterVersion: 5.4.1
+          - task: Bash@3
+            displayName: 'Stress tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                mkdir -p output_reports
+                jmeter -n -t Stress_test_suite.jmx -l stress-test-results.jtl -e -f -o stress-test-report
+          - task: PublishBuildArtifact@1
+            displayName: 'Publish output report of stress tests'
+            inputs:
+              ArtifactName: 'stress-test-report'
+              PathtoPublish: '$(Build.SourcesDirectory)/stress-test-report'
+          - task: Bash@3
+            displayName: 'Endurance tests'
+            inputs:
+              targetType: 'inline'
+              script: |
+                mkdir -p output_reports
+                jmeter -n -t Endurance_test_suite.jmx -l endurance-test-results.jtl -e -f -o endurance-test-report
+          - task: PublishBuildArtifact@1
+            displayName: 'Publish output report of endurance tests'
+            inputs:
+              ArtifactName: 'endurance-test-report'
+              PathtoPublish: '$(Build.SourcesDirectory)/endurance-test-report'
