@@ -162,7 +162,7 @@ stages:
     - task: JMeterInstaller@0
       displayName: 'Install JMeter 5.4.1'
       inputs:
-        jmeterVersion: 5.4.1
+        jmeterVersion: '5.4.2'
     - task: Bash@3
       displayName: 'Stress tests'
       inputs:
