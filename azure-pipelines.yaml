@@ -112,7 +112,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: 'Azure subscription 1(4d999104-b7c3-451d-b8d4-3d38b64ef19c)'
-              appName: 'myApplicationProject3fakerestAPI-AppService'
+              appName: 'myApplicationProject3-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
   - deployment: VMDeploy
