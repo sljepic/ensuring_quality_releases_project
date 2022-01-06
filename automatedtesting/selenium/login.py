@@ -20,6 +20,7 @@ fileHandler.setLevel(logging.INFO)
 fileHandler.setFormatter(logFormatter)
 rootLogger.addHandler(fileHandler)
 consoleHandler = logging.StreamHandler(stream=sys.stdout)
+consoleHandler.setFormatter(logFormatter)
 consoleHandler.setLevel(logging.INFO)
 rootLogger.addHandler(consoleHandler)
 
