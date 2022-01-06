@@ -151,6 +151,7 @@ stages:
                 #! /bin/bash
                 cd $(Pipeline.Workspace)/drop-selenium-test
                 python3 login.py
+                cp selenium-test.log /var/log/selenium-test.log
 
 - stage: Test
   jobs:
