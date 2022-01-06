@@ -151,7 +151,6 @@ stages:
                 #! /bin/bash
                 cd $(Pipeline.Workspace)/drop-selenium-test
                 python3 login.py
-                cat selenium-test.log
 
 - stage: Test
   jobs:
@@ -170,7 +169,6 @@ stages:
         targetType: 'inline'
         script: |
           jmeter -n -t automatedtesting/jmeter/Stress_test_suite.jmx -l Stress_test_output.jtl -e -f -o stress-test-report
-          cat Stress_test_output.jtl
     - task: PublishBuildArtifacts@1
       displayName: 'Publish output report of stress tests'
       inputs:
@@ -182,7 +180,6 @@ stages:
         targetType: 'inline'
         script: |
           jmeter -n -t automatedtesting/jmeter/Endurance_test_suite.jmx -l Endurance_test_output.jtl -e -f -o endurance-test-report
-          cat Endurance_test_output.jtl
     - task: PublishBuildArtifacts@1
       displayName: 'Publish output report of endurance tests'
       inputs:
