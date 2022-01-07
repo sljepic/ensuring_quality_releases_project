@@ -7,13 +7,15 @@ First step is to Create and Deploy Azure infrastructure. For creating and deploy
 
 
 ### Teraform init output
-![terraform_init_ci_cd_output](https://user-images.githubusercontent.com/53904394/148451110-b90f61fb-8d3e-41ae-9d52-c5db6cded16f.PNG)
+![terraform_init_ci_cd_output](https://user-images.githubusercontent.com/53904394/148535509-ec9b2716-dbd3-4a9e-a07e-648202fb4e0e.PNG)
+
 
 ### Terraform plan output
-![terraform_plan_ci_cd_output](https://user-images.githubusercontent.com/53904394/148451906-f74bae95-cdeb-45bc-b974-396b164e6419.PNG)
+![terraform_plan_ci_cd_output](https://user-images.githubusercontent.com/53904394/148535539-aadf8c68-d040-4bba-b44f-77323e5cf97e.PNG)
+
 
 ### Terraform apply output
-![terraform_apply_ci_cd_output](https://user-images.githubusercontent.com/53904394/148451927-c2528130-4e43-4e41-8e27-75f9bceda131.PNG)
+![terraform_apply_ci_cd_output](https://user-images.githubusercontent.com/53904394/148535549-a186342d-8274-4cb3-a0d3-e66b771aa329.PNG)
 
 
 ## Azure DevOps CI/CD:
@@ -21,52 +23,49 @@ First step is to Create and Deploy Azure infrastructure. For creating and deploy
 Three stages are defined: build, deploy and test, with several jobs that contain actions.
 
 ### Azure DevOps CI/CD pipeline execution
-
-![successful_execution_of_the_pipeline](https://user-images.githubusercontent.com/53904394/148452161-a19fb6bf-68e2-4faa-a715-600a4f215682.PNG)
+![successful_execution_of_the_pipeline](https://user-images.githubusercontent.com/53904394/148535579-d0604836-922c-4798-a0d2-9e2b3e46a574.PNG)
 
 ## Postman:
 
 Postman is a tool used for Integration testing. Two test suites are executed, regression and data validation tests.
 
 ### Postman regression tests execution
+![run_regression_tests_postman_ci_cd](https://user-images.githubusercontent.com/53904394/148535628-4f4b97c7-7f8d-4335-802f-19fc52dd0c1b.PNG)
 
-![run_regression_tests_postman_ci_cd](https://user-images.githubusercontent.com/53904394/148452539-ac19373f-237c-4554-adbb-dbdc3021de90.PNG)
 
 ### Postman data validation tests execution
-
-![run_data_validation_tests_postman_ci_cd](https://user-images.githubusercontent.com/53904394/148452590-75c42991-fcc4-4094-9800-396b62d6332c.PNG)
+![run_data_validation_tests_postman_ci_cd](https://user-images.githubusercontent.com/53904394/148535652-b8f70793-b8ad-405d-a4f5-bc6085efdcf8.PNG)
 
 ### Publish Postman test results
-
-![publish_postman_test_results](https://user-images.githubusercontent.com/53904394/148452638-6024a339-ca70-4610-aa3e-b952b0e01983.PNG)
+![publish_postman_test_results](https://user-images.githubusercontent.com/53904394/148535698-2ef349c6-0c9f-4b6f-a75e-559c0117a071.PNG)
 
 ### Postman test summary page
+![postman_test_summary_page](https://user-images.githubusercontent.com/53904394/148535928-6b6b4755-fc77-40c9-8694-d92f4d6528ce.PNG)
 
-![postman_test_summary_page](https://user-images.githubusercontent.com/53904394/148452679-8d893636-22b9-4220-af4f-d639450a17f1.PNG)
 
 ## Selenium:
 
 Selenium is used for functional UI testing
 
 ### Selenium CI/CD execution
-
-![selenium_ci_cd_job](https://user-images.githubusercontent.com/53904394/148452770-b20d5cb0-2841-4cb6-b99e-1cbe24bc8330.PNG)
+![selenium_ci_cd_job](https://user-images.githubusercontent.com/53904394/148535715-7af6ab94-2652-4772-8fde-8cfba825540d.PNG)
 
 ## JMeter
 
 JMeter is a tool used for Performance testing. Two test suites are executed, stress and endurance tests.
 
 ### Endurance tests CI/CD execution
-
-![jmeter_endurance_test_ci_cd_execution](https://user-images.githubusercontent.com/53904394/148452993-67bb1d71-9dac-4981-a91b-e3842263e0b3.PNG)
+![jmeter_endurance_test_ci_cd_execution](https://user-images.githubusercontent.com/53904394/148536002-3c9a472e-796a-4d8a-b31e-b70e22a38d22.PNG)
 
 ### Endurance tests HTML report
-
 ![jmeter_endurance_test_html_report](https://user-images.githubusercontent.com/53904394/148453051-a7434dc9-9aeb-4e13-99c3-8f87ae757216.PNG)
 
 ### Stress tests CI/CD execution
+![jmeter_stress_test_ci_cd_execution](https://user-images.githubusercontent.com/53904394/148535830-45623db3-0b32-45f7-94e6-17f0cda733d5.PNG)
 
-![jmeter_stress_test_html_report](https://user-images.githubusercontent.com/53904394/148453071-60944105-d1cc-4aac-a0b0-2eaa1d6e2e72.PNG)
+### Stress tests HTML report
+![jmeter_stress_test_html_report](https://user-images.githubusercontent.com/53904394/148535913-1dbcbca4-f9e9-4b36-bcc6-69e7aa8bf19a.PNG)
+
 
 ## Azure monitor
 
